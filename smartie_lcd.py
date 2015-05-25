@@ -27,25 +27,26 @@ delay = 0.04
 # ser.write(chr(0xFE)+chr(0x4E)+0+'0x15 0x15 0x15 0x15 0x15 0x15 0x1f 0')
 
 def command(cmd):
-  cmd_str = ''.join(['\xFE'] + cmd)
+  cmd_str = b''.join([b'\xFE'] + cmd)
+
   lcd.write(cmd_str)
   time.sleep(delay)
 
 def backlight_on():
-  command(['\x42', '\x00'])
+  command([b'\x42', b'\x00'])
 
 def backlight_off():
-  command(['\x46'])
+  command([b'\x46'])
 
 def set_contrast(amount):
-  command(['\x50', chr(amount)])
+  command([b'\x50', chr(amount).encode()])
 
 def write_line(line, data):
   if line is None or line < 1 or line > 4:
     line = 1
   data = data.ljust(20)[:20]
 
-  command(['\x47', '\x01', chr(line), data])
+  command([b'\x47', b'\x01', chr(line).encode(), data.encode()])
 
 
 if args.backlight == 'on':
