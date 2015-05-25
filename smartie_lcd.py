@@ -41,7 +41,7 @@ def backlight_off():
 def set_contrast(amount):
   command([b'\x50', chr(amount).encode()])
 
-def write_line(line, data):
+def write_line(data, line=1):
   if line is None or line < 1 or line > 4:
     line = 1
   data = data.ljust(20)[:20]
@@ -58,4 +58,4 @@ if args.contrast:
   set_contrast(args.contrast)
 
 if args.message:
-  write_line(args.line, args.message)
+  write_line(args.message, args.line)
