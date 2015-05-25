@@ -1,12 +1,13 @@
-import sys
-import socket
-import threading
-
+import argparse, sys, socket, threading
 from lcd import *
-# from smartie_lcd import * as lcd
 
-HOST = '' # All network interfaces
-PORT = 8089
+parser = argparse.ArgumentParser()
+parser.add_argument('-h', '--host')
+parser.add_argument('-p', '--port', type=int)
+args = parser.parse_args()
+
+HOST = args.host or ''
+PORT = args.port or 8089
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print('Socket created')
