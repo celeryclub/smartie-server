@@ -2,7 +2,7 @@ import sys
 import socket
 import threading
 
-from smartie_lcd import *
+from lcd import *
 # from smartie_lcd import * as lcd
 
 HOST = '' # All network interfaces
