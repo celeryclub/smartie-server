@@ -1,7 +1,7 @@
 import argparse, sys, socket, threading
 from lcd import *
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument('-h', '--host')
 parser.add_argument('-p', '--port', type=int)
 args = parser.parse_args()
