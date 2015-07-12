@@ -1,3 +1,5 @@
+# Smartie Server
+
 ```sh
 sudo apt-get install python-pip
 pip install pyserial
