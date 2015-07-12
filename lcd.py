@@ -1,6 +1,4 @@
-import argparse
-import serial
-import time
+import argparse, serial, time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-b', '--backlight')

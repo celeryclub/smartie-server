@@ -1,4 +1,4 @@
-import argparse, sys, socket, threading
+import argparse, sys, socket, threading, json
 from lcd import *
 
 parser = argparse.ArgumentParser(add_help=False)
@@ -30,15 +30,30 @@ def clientthread(conn, addr):
   #infinite loop so that function do not terminate and thread do not end.
   while True:
     # Receiving from client
-    data = conn.recv(1024).decode()
-    if not data:
+    raw_data = conn.recv(1024)
+
+    if not raw_data:
       print('Connection to ' + address[0] + ':' + str(address[1]) + ' closed')
       break
 
-    print('Received message: ' + data)
-    write_line(data)
+    decoded_data = raw_data.decode()
+    print('decoded_data')
+    print(decoded_data)
+    data = json.loads(decoded_data)
+    print(repr(decoded_data))
 
-    reply = 'You sent: ' + data
+    print('Received message: ' + decoded_data)
+    for key, val in data.items():
+      if 'line' in key.lower():
+        try:
+          line = int(key[-1:])
+        except ValueError:
+          print('ERROR: ' + key + ' is not a number')
+
+        print('writing line... ' + key + ': ' + val)
+        write_line(val, line)
+
+    reply = 'You sent: ' + decoded_data
     conn.sendall(reply.encode())
 
   #came out of loop
