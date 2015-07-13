@@ -29,7 +29,7 @@ def clientthread(conn, addr):
 
   #infinite loop so that function do not terminate and thread do not end.
   while True:
-    # Receiving from client
+    # Receiving message from client
     raw_data = conn.recv(1024)
 
     if not raw_data:
@@ -39,12 +39,22 @@ def clientthread(conn, addr):
     decoded_data = raw_data.decode()
     print('decoded_data')
     print(decoded_data)
-    data = json.loads(decoded_data)
+    message = json.loads(decoded_data)
     print(repr(decoded_data))
 
+    message_type = type(message).__name__
+
     print('Received message: ' + decoded_data)
-    for key, val in data.items():
-      if 'line' in key.lower():
+    print('Message type: ' + message_type)
+    # if message_type == 'dict':
+    # if message_type == 'dict':
+    for key, val in message.items():
+      if 'backlight' in key.lower():
+        if val.lower() == 'on':
+          backlight_on()
+        elif val.lower() == 'off':
+          backlight_off()
+      elif 'line' in key.lower():
         try:
           line = int(key[-1:])
         except ValueError:
