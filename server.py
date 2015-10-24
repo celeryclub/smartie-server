@@ -57,10 +57,11 @@ def clientthread(conn, addr):
       elif 'line' in key.lower():
         try:
           line = int(key[-1:])
-          print('writing line... ' + key + ': ' + val)
-          write_line(val, line)
         except ValueError:
           print('ERROR: ' + key + ' is not a number')
+
+        print('writing line... ' + key + ': ' + val)
+        write_line(val, line)
 
     reply = 'You sent: ' + decoded_data
     conn.sendall(reply.encode())
