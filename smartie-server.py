@@ -1,5 +1,5 @@
 import argparse, sys, socket, threading, json
-from lcd import *
+from smartie import *
 
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument('-h', '--host')
