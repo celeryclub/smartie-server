@@ -1,4 +1,4 @@
 all: deploy
 
 deploy:
-	rsync -avP --exclude '/.git' --exclude '/.gitignore' --filter ':- .gitignore' . orange-wlan:~/smartie-server
+	rsync -avP --exclude '/.git' --exclude '/.gitignore' --filter ':- .gitignore' . violet-wlan:~/smartie-server
