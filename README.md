@@ -1,12 +1,9 @@
 # Smartie Server
 
 ```sh
-sudo apt-get install python-pip
-pip install pyserial
-
 # Run in foreground
-python3 server.py
+python smartie-server.py
 
-# Run in background
-python3 server.py > ./server.log 2>&1 &
+#pyserial Run in background
+python smartie-server.py > ./smartie-server.log 2>&1 &
 ```

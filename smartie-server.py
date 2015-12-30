@@ -1,5 +1,9 @@
+if __name__ == '__main__' and __package__ is None:
+  from os import sys, path
+  sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
 import argparse, sys, socket, threading, json
-from smartie import *
+from smartie.smartie import Smartie
 
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument('-h', '--host')
@@ -22,6 +26,8 @@ print('Socket bind complete')
 
 server.listen(10) # Maximum 10 connections
 print('Socket now listening')
+
+smartie = Smartie()
 
 def clientthread(conn, addr):
   #Sending message to connected client
@@ -51,9 +57,9 @@ def clientthread(conn, addr):
     for key, val in message.items():
       if 'backlight' in key.lower():
         if val.lower() == 'on':
-          backlight_on()
+          smartie.backlight_on()
         elif val.lower() == 'off':
-          backlight_off()
+          smartie.backlight_off()
       elif 'line' in key.lower():
         try:
           line = int(key[-1:])
@@ -61,7 +67,7 @@ def clientthread(conn, addr):
           print('ERROR: ' + key + ' is not a number')
 
         print('writing line... ' + key + ': ' + val)
-        write_line(val, line)
+        smartie.write_line(val, line)
 
     reply = 'You sent: ' + decoded_data
     conn.sendall(reply.encode())
